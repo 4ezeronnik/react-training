@@ -26,8 +26,9 @@ class App extends Component {
   };
 
   countTotalFeedback() {
-    
-  } 
+    return Object.values(this.state).reduce((total, item) => total + item, 0);
+  };
+  
 
 
   render() {
@@ -42,7 +43,8 @@ class App extends Component {
         <h3>Statistics</h3>
         <p>Good: {this.state.good}</p>
         <p>Neutral: {this.state.neutral}</p>
-        <p>Bad: { this.state.bad}</p>
+        <p>Bad: {this.state.bad}</p>
+        <p>Total: {this.countTotalFeedback()}</p>
         
 
 
