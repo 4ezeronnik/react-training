@@ -7,6 +7,7 @@ class App extends Component {
     bad: 0
   }
 
+
   addGoodFeedback = () => {
     this.setState(prevState => ({
       good: this.state.good + 1,
@@ -30,12 +31,13 @@ class App extends Component {
   };
   
   countPositiveFeedbackPercentage() {
-    return Math.floor(((this.state.good) / (this.state.good + this.state.neutral + this.state.bad)) * 100);
+    return Math.ceil(((this.state.good) / (this.state.good + this.state.neutral + this.state.bad)) * 100);
     
   }
 
 
   render() {
+    const { good, neutral, bad } = this.state;
     return (
       <>
         <h2>Please leave feedback</h2>
@@ -45,11 +47,11 @@ class App extends Component {
           <button onClick={this.addBadFeedback}>Bad</button>
         </div>
         <h3>Statistics</h3>
-        <p>Good: {this.state.good}</p>
-        <p>Neutral: {this.state.neutral}</p>
-        <p>Bad: {this.state.bad}</p>
+        <p>Good: {good}</p>
+        <p>Neutral: {neutral}</p>
+        <p>Bad: {bad}</p>
         <p>Total: {this.countTotalFeedback()}</p>
-        <p>Positive feedback: {0 || this.countPositiveFeedbackPercentage()}%</p>
+        <p>Positive feedback: {this.countPositiveFeedbackPercentage()}%</p>
         
 
 
