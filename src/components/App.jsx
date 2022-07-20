@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Section  from "./Section/Section";
 import Statistics  from "./Statistics/Statistics";
-import  FeedbackOptions  from "./FeedbackOptions/FeedbackOptions";
+import FeedbackOptions  from "./FeedbackOptions/FeedbackOptions";
 
 class App extends Component {
   state = {
@@ -11,9 +11,9 @@ class App extends Component {
   }
 
   onLeaveFeedback = (e) => {
-    const onClickEvt = e.target.textContent.toLowerCase();
+    const onEvtTarget = e.target.textContent.toLowerCase();
     this.setState(prevState => ({
-      [onClickEvt]: prevState[onClickEvt] + 1,
+      [onEvtTarget]: prevState[onEvtTarget] + 1,
     }))
   }
   
