@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Section  from "./Section/Section";
 import Statistics  from "./Statistics/Statistics";
-import FeedbackOptions  from "./FeedbackOptions/FeedbackOptions";
+import FeedbackOptions from "./FeedbackOptions/FeedbackOptions";
 
 class App extends Component {
   state = {
@@ -16,7 +16,6 @@ class App extends Component {
       [onEvtTarget]: prevState[onEvtTarget] + 1,
     }))
   }
-  
 
   countTotalFeedback() {
     return Object.values(this.state).reduce((total, item) => total + item, 0);
@@ -26,7 +25,6 @@ class App extends Component {
     return Math.ceil(((this.state.good) / (this.state.good + this.state.neutral + this.state.bad)) * 100);
     
   }
-
 
   render() {
     const { good, neutral, bad } = this.state;
