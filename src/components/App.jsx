@@ -11,9 +11,9 @@ class App extends Component {
   }
 
   onLeaveFeedback = (e) => {
-    const onEvtTarget = e.target.textContent.toLowerCase();
+    const BtnClickTarget = e.target.textContent.toLowerCase();
     this.setState(prevState => ({
-      [onEvtTarget]: prevState[onEvtTarget] + 1,
+      [BtnClickTarget]: prevState[BtnClickTarget] + 1,
     }))
   }
 
