@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 // import TodoList from './ToDoList/ToDoList';
 import initialTodos from '../todos.json';
-
-
+import Form from './Form';
 
 class App extends Component {
   state = {
     todos: initialTodos,
-    name: '',
-    tag: '',
   };
 
   deleteTodo = todoId => {
@@ -17,12 +14,12 @@ class App extends Component {
     }));
   };
 
-  handleChange = e => {
-    const { name, value } = e.currentTarget;
-
-    this.setState({ [name]: value });
+  formSubmitHandler = data => {
+    setTimeout(() => {
+      console.log(data);
+    }, 1000);
+    
   };
-
 
   render() {
     // const { todos } = this.state;
@@ -35,23 +32,8 @@ class App extends Component {
 
     return (
       <>
-        <form>
-          <label>
-            Имя <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange} />
-          </label>
-          <label>
-            Прозвище
-            <input
-              type="text"
-              name="tag"
-              value={this.state.tag}
-              onChange={this.handleChange} />
-          </label>
-        </form>
+        <Form onSubmit={this.formSubmitHandler} />
+       
 
         {/* <Counter initialValue={10} /> */}
         
