@@ -1,41 +1,71 @@
-import React, { Component } from "react";
-import Section  from "./Section/Section";
-import Statistics  from "./Statistics/Statistics";
-import FeedbackOptions from "./FeedbackOptions/FeedbackOptions";
+import React, { Component } from 'react';
+// import TodoList from './ToDoList/ToDoList';
+import initialTodos from '../todos.json';
+
+
 
 class App extends Component {
   state = {
-    good: 0,
-    neutral: 0,
-    bad: 0
-  }
-
-  onLeaveFeedback = (e) => {
-    const BtnClickTarget = e.target.textContent.toLowerCase();
-    this.setState(prevState => ({
-      [BtnClickTarget]: prevState[BtnClickTarget] + 1,
-    }))
-  }
-
-  countTotalFeedback() {
-    return Object.values(this.state).reduce((total, item) => total + item, 0);
+    todos: initialTodos,
+    name: '',
+    tag: '',
   };
-  
-  countPositiveFeedbackPercentage() {
-    return Math.ceil(((this.state.good) / (this.state.good + this.state.neutral + this.state.bad)) * 100);
-    
-  }
+
+  deleteTodo = todoId => {
+    this.setState(prevState => ({
+      todos: prevState.todos.filter(todo => todo.id !== todoId),
+    }));
+  };
+
+  handleChange = e => {
+    const { name, value } = e.currentTarget;
+
+    this.setState({ [name]: value });
+  };
+
 
   render() {
-    const { good, neutral, bad } = this.state;
+    // const { todos } = this.state;
+
+    // const totalTodoCount = todos.length;
+    // const completedTodoCount = todos.reduce(
+    //   (total, todo) => (todo.completed ? total + 1 : total),
+    //   0,
+    // );
+
     return (
-      <Section title="Please leave feedback">
-        <FeedbackOptions options={['Good', 'Neutral', 'Bad']} onLeaveFeedback={this.onLeaveFeedback} />
-        <Statistics good={good} neutral={neutral} bad={bad} total={this.countTotalFeedback()} positivePercentage={this.countPositiveFeedbackPercentage()} />
-      </Section>
-    )
+      <>
+        <form>
+          <label>
+            Имя <input
+              type="text"
+              name="name"
+              value={this.state.name}
+              onChange={this.handleChange} />
+          </label>
+          <label>
+            Прозвище
+            <input
+              type="text"
+              name="tag"
+              value={this.state.tag}
+              onChange={this.handleChange} />
+          </label>
+        </form>
+
+        {/* <Counter initialValue={10} /> */}
+        
+
+        {/* <div> */}
+          {/* <p>Общее кол-во: {totalTodoCount}</p>
+          <p>Кол-во выполненных: {completedTodoCount}</p> */}
+        {/* </div> */}
+
+        {/* <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+       */}
+        </>
+    );
   }
 }
-
 
 export default App;
