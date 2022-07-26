@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import initialTodos from '../todos.json';
 import Form from './Form';
 
+
 class App extends Component {
   state = {
     todos: initialTodos,
@@ -33,7 +34,6 @@ class App extends Component {
     return (
       <>
         <Form onSubmit={this.formSubmitHandler} />
-       
 
         {/* <Counter initialValue={10} /> */}
         
