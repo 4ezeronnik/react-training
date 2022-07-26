@@ -9,6 +9,7 @@ const TodoList = ({ todos, onDeleteTodo }) => (
       </li>
     ))}
   </ul>
+
 );
 
 export default TodoList;

@@ -3,9 +3,10 @@ import shortid from 'shortid';
 
 class Form extends Component {
     state = {
-        name: '',
+      name: '',
       tag: '',
-        experience: 'junior',
+      experience: 'junior',
+      license: false,
     };
   
   nameInputId = shortid.generate();
@@ -25,9 +26,15 @@ class Form extends Component {
         this.reset();
     };
 
-      reset = () => {
+  reset = () => {
     this.setState({ name: '', tag: '' });
   };
+
+  handleLicenseChange = e => {
+    console.log(e.currentTarget.checked);
+
+    this.setState({license: e.currentTarget.checked})
+  }
 
 
     render() {
@@ -79,9 +86,15 @@ class Form extends Component {
             </label>
             <br />
             
-            <input type="checkbox" name="" id=""/>
+            <label>
+              <input
+                type="checkbox"
+                name="license"
+                checked={this.state.license}
+                onChange={this.handleLicenseChange}/> Согласен с условием
+            </label>
 
-          <button type="submit">Отправить</button>
+          <button type="submit" disabled={!this.state.license}>Отправить</button>
         </form>
         );
   };
