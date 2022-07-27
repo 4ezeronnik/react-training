@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoList from './ToDoList/ToDoList';
 import initialTodos from '../todos.json';
+import TodoEditor from './TodoEditor/TodoEditor';
 // import Form from './Form';
 
 
@@ -14,6 +15,17 @@ class App extends Component {
       todos: prevState.todos.filter(todo => todo.id !== todoId),
     }));
   };
+
+  toggleCompleted = todoId => {
+    console.log(todoId);
+
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo =>
+        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+      )
+    }));
+  };
+
 
   // formSubmitHandler = data => {
   //   setTimeout(() => {
@@ -39,12 +51,16 @@ class App extends Component {
 
         <div>
           <p>Общее кол-во: {totalTodoCount}</p>
-          <p>Кол-во выполненных: {completedTodoCount}</p> 
+          <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
-
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+        
+        <TodoEditor />
+        
+        <TodoList todos={todos}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted} />
       
-        </>
+      </>
     );
   }
 }
