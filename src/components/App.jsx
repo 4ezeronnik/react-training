@@ -10,6 +10,10 @@ class App extends Component {
     todos: initialTodos,
   };
 
+  addToDo = text => {
+    console.log(text);
+  }
+
   deleteTodo = todoId => {
     this.setState(prevState => ({
       todos: prevState.todos.filter(todo => todo.id !== todoId),
@@ -54,7 +58,7 @@ class App extends Component {
           <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
         
-        <TodoEditor />
+        <TodoEditor onSubmit={this.addToDo}/>
         
         <TodoList todos={todos}
           onDeleteTodo={this.deleteTodo}
