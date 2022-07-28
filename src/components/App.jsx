@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
+
 import TodoList from './ToDoList/ToDoList';
 import initialTodos from '../todos.json';
 import TodoEditor from './TodoEditor/TodoEditor';
 // import Form from './Form';
+
 
 
 class App extends Component {
@@ -12,7 +15,17 @@ class App extends Component {
 
   addToDo = text => {
     console.log(text);
-  }
+
+    const todo = {
+      id: shortid.generate(),
+      text,
+      completed: false,
+    };
+
+    this.setState(({todos}) => ({
+      todos: [todo, ...todos],
+    }))
+  };
 
   deleteTodo = todoId => {
     this.setState(prevState => ({
