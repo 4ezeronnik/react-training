@@ -4,6 +4,7 @@ import shortid from 'shortid';
 import TodoList from './ToDoList/ToDoList';
 import initialTodos from '../todos.json';
 import TodoEditor from './TodoEditor/TodoEditor';
+import Filter from './ToDoList/Filter';
 // import Form from './Form';
 
 
@@ -11,6 +12,7 @@ import TodoEditor from './TodoEditor/TodoEditor';
 class App extends Component {
   state = {
     todos: initialTodos,
+    filter: '',
   };
 
   addToDo = text => {
@@ -43,6 +45,10 @@ class App extends Component {
     }));
   };
 
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
 
   // formSubmitHandler = data => {
   //   setTimeout(() => {
@@ -52,7 +58,7 @@ class App extends Component {
   // };
 
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
 
     const totalTodoCount = todos.length;
     const completedTodoCount = todos.reduce(
@@ -71,7 +77,8 @@ class App extends Component {
           <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
         
-        <TodoEditor onSubmit={this.addToDo}/>
+        <TodoEditor onSubmit={this.addToDo} />
+        <Filter value={filter} onChange={this.changeFilter}/>
         
         <TodoList todos={todos}
           onDeleteTodo={this.deleteTodo}
