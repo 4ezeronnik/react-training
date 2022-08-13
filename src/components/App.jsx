@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import shortid from 'shortid';
 
 import TodoList from './ToDoList/ToDoList';
-import initialTodos from '../todos.json';
+// import initialTodos from '../todos.json';
 import TodoEditor from './TodoEditor/TodoEditor';
 import Filter from './ToDoList/Filter';
 // import Form from './Form';
@@ -11,12 +11,11 @@ import Filter from './ToDoList/Filter';
 
 class App extends Component {
   state = {
-    todos: initialTodos,
+    todos: [],
     filter: '',
   };
 
   addToDo = text => {
-    console.log(text);
 
     const todo = {
       id: shortid.generate(),
@@ -36,7 +35,6 @@ class App extends Component {
   };
 
   toggleCompleted = todoId => {
-    console.log(todoId);
 
     this.setState(prevState => ({
       todos: prevState.todos.map(todo =>
@@ -65,14 +63,31 @@ class App extends Component {
     );
   }
 
-  // formSubmitHandler = data => {
-  //   setTimeout(() => {
-  //     console.log(data);
-  //   }, 1000);
-    
-  // };
+  componentDidMount() {
+    console.log('App componentDidMount');
+
+    const todos = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+    this.setState({ todos: parsedTodos });
+ }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+
+    if (this.state.todos !== prevState.todos) {
+      console.log('Обновилось поле todos');
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos))
+      
+    }
+
+  }
 
   render() {
+    console.log('App render');
     const { todos, filter } = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
