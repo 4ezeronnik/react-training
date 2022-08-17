@@ -6,6 +6,7 @@ import TodoList from './ToDoList/ToDoList';
 import TodoEditor from './TodoEditor/TodoEditor';
 import Filter from './ToDoList/Filter';
 // import Form from './Form';
+import Modal from './Modal/Modal'
 
 
 
@@ -13,7 +14,31 @@ class App extends Component {
   state = {
     todos: [],
     filter: '',
+    showModal: false
   };
+
+    componentDidMount() {
+    console.log('App componentDidMount');
+
+    const todos = localStorage.getItem('todos');
+    const parsedTodos = JSON.parse(todos);
+
+    if (parsedTodos) {
+    this.setState({ todos: parsedTodos });
+ }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log('App componentDidUpdate');
+
+    if (this.state.todos !== prevState.todos) {
+      console.log('Обновилось поле todos');
+
+      localStorage.setItem('todos', JSON.stringify(this.state.todos))
+      
+    }
+
+  }
 
   addToDo = text => {
 
@@ -63,43 +88,44 @@ class App extends Component {
     );
   }
 
-  componentDidMount() {
-    console.log('App componentDidMount');
-
-    const todos = localStorage.getItem('todos');
-    const parsedTodos = JSON.parse(todos);
-
-    if (parsedTodos) {
-    this.setState({ todos: parsedTodos });
- }
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('App componentDidUpdate');
-
-    if (this.state.todos !== prevState.todos) {
-      console.log('Обновилось поле todos');
-
-      localStorage.setItem('todos', JSON.stringify(this.state.todos))
-      
-    }
-
-  }
 
   render() {
     console.log('App render');
-    const { todos, filter } = this.state;
+    const { todos, filter, showModal} = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
     const visibleTodos = this.getVisibleTodos();
 
     return (
       <>
+        <button type="button" onClick={this.toggleModal}>Open modal</button>
+        {showModal && <Modal onClose={this.toggleModal}>
+          <h1>Hello, this is content of modal as a children</h1>
+          <p> Lamarr was taking acting classes in Vienna when one day,
+            she forged a note from her mother and went to Sascha-Film and was able to get herself hired as a script girl.
+            While there, she was able to get a role as an extra in Money on the Street (1930),
+            and then a small speaking part in Storm in a Water Glass (1931).
+            Producer Max Reinhardt then cast her in a play entitled The Weaker Sex, which was performed at the Theater in der Josefstadt.
+            Reinhardt was so impressed with her that he brought her with him back to Berlin.
+            However, she never actually trained with Reinhardt or appeared in any of his Berlin productions.
+            Instead, she met the Russian theatre producer Alexis Granowsky, who cast her in his film directorial debut,
+            The Trunks of Mr. O.F. (1931), starring Walter Abel and Peter Lorre. Granowsky soon moved to Paris,
+            but Lamarr stayed in Berlin and was given the lead role in No Money Needed (1932), a comedy directed by Carl Boese.
+            Lamarr then starred in the film which made her internationally famous.
+          </p>
+          <button type="button" onClick={this.toggleModal}>Close</button>
+        </Modal> }
 
         {/* <Counter initialValue={10} /> */}
         
 
-        <div>
+        {/* <div>
           <p>Общее кол-во: {totalTodoCount}</p>
           <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
@@ -109,7 +135,7 @@ class App extends Component {
         
         <TodoList todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted} />
+          onToggleCompleted={this.toggleCompleted} /> */}
       
       </>
     );
