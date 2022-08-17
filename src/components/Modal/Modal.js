@@ -8,17 +8,21 @@ export default class Modal extends Component {
     componentDidMount() {
         console.log('Modal componentDidMount');
 
-        window.addEventListener('keydown', e => {
-            if (e.code === 'Escape') {
-                console.log('Pressed ESC, need to close the modal');
-
-                this.props.onClose();
-            }
-        });
+        window.addEventListener('keydown', this.handleKeyDown);
     }
 
     componentWillUnmount() {
         console.log('Modal componentWillUnmount');
+
+        window.removeEventListener('keydown', this.handleKeyDown)
+    }
+
+    handleKeyDown = e => {
+         if (e.code === 'Escape') {
+                console.log('Pressed ESC, need to close the modal');
+                
+                this.props.onClose();
+            }
     }
 
     render() {

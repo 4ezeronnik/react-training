@@ -14,7 +14,7 @@ class App extends Component {
   state = {
     todos: [],
     filter: '',
-    showModal: false
+    showModal: false,
   };
 
     componentDidMount() {
@@ -29,10 +29,9 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('App componentDidUpdate');
 
     if (this.state.todos !== prevState.todos) {
-      console.log('Обновилось поле todos');
+  
 
       localStorage.setItem('todos', JSON.stringify(this.state.todos))
       
@@ -96,7 +95,7 @@ class App extends Component {
 
 
   render() {
-    console.log('App render');
+ 
     const { todos, filter, showModal} = this.state;
     const totalTodoCount = todos.length;
     const completedTodoCount = this.calculateCompletedTodos();
@@ -105,7 +104,8 @@ class App extends Component {
     return (
       <>
         <button type="button" onClick={this.toggleModal}>Open modal</button>
-        {showModal && <Modal onClose={this.toggleModal}>
+        {showModal && (
+          <Modal onClose={this.toggleModal}>
           <h1>Hello, this is content of modal as a children</h1>
           <p> Lamarr was taking acting classes in Vienna when one day,
             she forged a note from her mother and went to Sascha-Film and was able to get herself hired as a script girl.
@@ -120,7 +120,7 @@ class App extends Component {
             Lamarr then starred in the film which made her internationally famous.
           </p>
           <button type="button" onClick={this.toggleModal}>Close</button>
-        </Modal> }
+        </Modal> )}
 
         {/* <Counter initialValue={10} /> */}
         
