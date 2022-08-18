@@ -7,6 +7,7 @@ import TodoEditor from './TodoEditor/TodoEditor';
 import Filter from './ToDoList/Filter';
 // import Form from './Form';
 import Modal from './Modal/Modal'
+import Clock from './Clock/Clock'
 
 
 
