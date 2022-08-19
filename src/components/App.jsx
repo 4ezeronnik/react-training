@@ -7,7 +7,9 @@ import TodoEditor from './TodoEditor/TodoEditor';
 import Filter from './ToDoList/Filter';
 // import Form from './Form';
 import Modal from './Modal/Modal'
-import Clock from './Clock/Clock'
+// import Clock from './Clock/Clock'
+// import Tabs from './Tabs/Tabs';
+// import tabs from '../tabs.json';
 
 
 
@@ -104,6 +106,7 @@ class App extends Component {
 
     return (
       <>
+        {/* <Tabs items={tabs}/> */}
         <button type="button" onClick={this.toggleModal}>Open modal</button>
         {showModal && (
           <Modal onClose={this.toggleModal}>
@@ -126,7 +129,7 @@ class App extends Component {
         {/* <Counter initialValue={10} /> */}
         
 
-        {/* <div>
+        <div>
           <p>Общее кол-во: {totalTodoCount}</p>
           <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
@@ -136,7 +139,7 @@ class App extends Component {
         
         <TodoList todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted} /> */}
+          onToggleCompleted={this.toggleCompleted} />
       
       </>
     );
