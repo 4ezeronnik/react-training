@@ -10,6 +10,8 @@ import Modal from './Modal/Modal'
 // import Clock from './Clock/Clock'
 // import Tabs from './Tabs/Tabs';
 // import tabs from '../tabs.json';
+import IconButton from './IconButton/IconButton';
+import { ReactComponent as AddIcon } from '../icons/add.svg';
 
 
 
@@ -33,13 +35,14 @@ class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
 
-    if (this.state.todos !== prevState.todos) {
-  
+    const nextTodos = this.state.todos;
+    const prevTodos = prevState.todos;
 
+    if (nextTodos !== prevTodos) {
       localStorage.setItem('todos', JSON.stringify(this.state.todos))
-      
     }
-
+    if (nextTodos.length > prevTodos.length && prevTodos.length !== 0)
+      this.toggleModal();
   }
 
   addToDo = text => {
@@ -50,9 +53,11 @@ class App extends Component {
       completed: false,
     };
 
-    this.setState(({todos}) => ({
+    this.setState(({ todos }) => ({
       todos: [todo, ...todos],
-    }))
+    }));
+
+    // this.toggleModal();
   };
 
   deleteTodo = todoId => {
@@ -107,23 +112,15 @@ class App extends Component {
     return (
       <>
         {/* <Tabs items={tabs}/> */}
-        <button type="button" onClick={this.toggleModal}>Open modal</button>
+
+        <IconButton onClick={this.toggleModal} aria-label="Add todo">
+          <AddIcon width="40" height="40" fill="white" />
+        </IconButton>
+
+        {/* <button type="button" onClick={this.toggleModal}>Open modal</button> */}
         {showModal && (
           <Modal onClose={this.toggleModal}>
-          <h1>Hello, this is content of modal as a children</h1>
-          <p> Lamarr was taking acting classes in Vienna when one day,
-            she forged a note from her mother and went to Sascha-Film and was able to get herself hired as a script girl.
-            While there, she was able to get a role as an extra in Money on the Street (1930),
-            and then a small speaking part in Storm in a Water Glass (1931).
-            Producer Max Reinhardt then cast her in a play entitled The Weaker Sex, which was performed at the Theater in der Josefstadt.
-            Reinhardt was so impressed with her that he brought her with him back to Berlin.
-            However, she never actually trained with Reinhardt or appeared in any of his Berlin productions.
-            Instead, she met the Russian theatre producer Alexis Granowsky, who cast her in his film directorial debut,
-            The Trunks of Mr. O.F. (1931), starring Walter Abel and Peter Lorre. Granowsky soon moved to Paris,
-            but Lamarr stayed in Berlin and was given the lead role in No Money Needed (1932), a comedy directed by Carl Boese.
-            Lamarr then starred in the film which made her internationally famous.
-          </p>
-          <button type="button" onClick={this.toggleModal}>Close</button>
+           <TodoEditor onSubmit={this.addToDo} />
         </Modal> )}
 
         {/* <Counter initialValue={10} /> */}
@@ -134,7 +131,6 @@ class App extends Component {
           <p>Кол-во выполненных: {completedTodoCount}</p>
         </div>
         
-        <TodoEditor onSubmit={this.addToDo} />
         <Filter value={filter} onChange={this.changeFilter}/>
         
         <TodoList todos={visibleTodos}
