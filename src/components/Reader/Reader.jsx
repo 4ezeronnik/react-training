@@ -10,29 +10,30 @@ export default class Reader extends Component {
     };
 
     render() {
+        const { index } = this.state;
+        const { items } = this.props;
+        const totalItems = items.length;
+        const currentItem = items[index];
+        
         return (
             <div>
                 <section>
-                    <button type="button" onClick={() => this.changeIndex(-1)}>
+                    <button type="button" disabled={index === 0} onClick={() => this.changeIndex(-1)}>
                         Назад
                     </button>
-                    <button type="button" onClick={() => this.changeIndex(1)}>
+                    <button type="button" disabled={index + 1 === totalItems} onClick={() => this.changeIndex(1)}>
                         Вперед
                     </button>
                 </section>
 
-                <p>{this.state.index + 1}/{this.props.items.length}</p>
+                <p>{this.state.index + 1}/{totalItems}</p>
 
-                {/* <article>
-                    <h2>Lorem ipsum dolor sit amet</h2>
+                <article>
+                    <h2>{currentItem.title}</h2>
                     <p>
-                        Lorem ipsum dolor sit amet consecteur adiplisicing elit. Temporibus,
-                        molestiae dolore ipsa sed similique necessitatibus. Aut qui porro
-                        quibusdam esse libero est eius, repellundus unde nihil, sequi
-                        voluptate eaque officiis aliqam impedit laborum adipisci cumque
-                        sit.
+                        {currentItem.text}
                     </p>
-                </article> */}
+                </article>
             </div>
         );
     }
