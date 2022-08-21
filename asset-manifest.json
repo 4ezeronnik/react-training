@@ -1,14 +1,13 @@
 {
   "files": {
-    "main.css": "/react-training/static/css/main.2981f9b6.css",
-    "main.js": "/react-training/static/js/main.af60bbf5.js",
+    "main.css": "/react-training/static/css/main.96edf360.css",
+    "main.js": "/react-training/static/js/main.3a5adda2.js",
     "index.html": "/react-training/index.html",
-    "static/media/add.svg": "/react-training/static/media/add.b32f3a092015d7a228e03084a624cb0b.svg",
-    "main.2981f9b6.css.map": "/react-training/static/css/main.2981f9b6.css.map",
-    "main.af60bbf5.js.map": "/react-training/static/js/main.af60bbf5.js.map"
+    "main.96edf360.css.map": "/react-training/static/css/main.96edf360.css.map",
+    "main.3a5adda2.js.map": "/react-training/static/js/main.3a5adda2.js.map"
   },
   "entrypoints": [
-    "static/css/main.2981f9b6.css",
-    "static/js/main.af60bbf5.js"
+    "static/css/main.96edf360.css",
+    "static/js/main.3a5adda2.js"
   ]
 }
