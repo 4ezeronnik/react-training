@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-import Reader from './Reader/Reader';
-import publications from '../publications.json';
+import PokemonForm from './PokemonForm';
+// import PokemonInfo from './PokemonInfo';
 
 class App extends Component {
   state = {
-    todos: [],
-    filter: '',
-    showModal: false,
+  pokemonName: '',
+}
+
+  handleFormSubmit = pokemonName => {
+    this.setState({ pokemonName });
   };
 
-  render() {
-    return (
-      <>
-        <Reader items={publications}/>
-      </>
-    );
-  }
+    render() {
+      return (
+        <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
+          <PokemonForm onSubmit={this.handleFormSubmit}/>
+        </div>
+      );
+    }
 }
 
 export default App;
