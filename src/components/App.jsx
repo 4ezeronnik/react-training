@@ -1,24 +1,22 @@
 import React, { Component } from 'react';
-import PokemonForm from './PokemonForm';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import PokemonInfo from './PokemonInfo';
+import { MaterialEditorForm } from './MaterialEditorForm/MaterialEditorForm';
+import * as API from 'services/api';
 
 class App extends Component {
   state = {
-    pokemonName: '',
-}
-
-  handleFormSubmit = pokemonName => {
-    this.setState({ pokemonName });
+    materials: [],
   };
 
+  addMaterial = async (values) => {
+    const material = await API.addMaterial(values);
+    this.setState(state => ({
+      materials: [...state.materials, material]
+    }));
+}
     render() {
       return (
-        <div style={{ maxWidth: 1170, margin: '0 auto', padding: 20 }}>
-          <PokemonForm onSubmit={this.handleFormSubmit} />
-          <PokemonInfo pokemonName={this.state.pokemonName}/>
-          <ToastContainer autoClose={3000}/>
+        <div>
+          <MaterialEditorForm onSubmit={this.addMaterial}/>
         </div>
       );
     }
