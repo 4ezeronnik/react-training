@@ -1,24 +1,25 @@
 import { Formik, Form, Field } from 'formik';
 
 export const MaterialEditorForm = ({ onSubmit }) => {
-    const handleSubmit = (values, actions) => {
-        onSubmit(values)
+    const handleSubmit = async (values, actions) => {
+        await onSubmit(values);
+        actions.setSubmitting(false);
         actions.resetForm();
     }
     return <Formik initialValues={{ title: '', link: '' }}
         onSubmit={handleSubmit}
     >
-        <Form>
+        {({ isSubmitting }) => (<Form>
             <label>
                 Description
-                <Field name="title" type="text"/>
+                <Field name="title" type="text" />
             </label>
-            <br/>
-               <label>
+            <br />
+            <label>
                 Link
-                <Field name="link" type="text"/>
-                </label>
-                <button type="submit">Add material</button>
-        </Form>
+                <Field name="link" type="text" />
+            </label>
+            <button type="submit" disabled={isSubmitting}>Add material</button>
+        </Form>)}
     </Formik>
 };
