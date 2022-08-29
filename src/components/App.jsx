@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MaterialEditorForm } from './MaterialEditorForm/MaterialEditorForm';
 import * as API from 'services/api';
-import {Materials} from './Materials/Materials'
+import {MaterialList} from './MaterialList/MaterialList'
 
 class App extends Component {
   state = {
@@ -44,8 +44,21 @@ const materials = await API.getMaterials();
       this.setState({ error: true })
       console.log(error);
     }
-
   };
+
+  updateMaterial = async fields => {
+    try {
+ const updatedMaterial = await API.updateMaterial(fields);
+    this.setState(state => ({
+      materials: state.materials.map(material =>
+        material.id === fields.id ? updatedMaterial : material),
+    }));
+    } catch (error) {
+      this.setState({ error: true });
+      console.log(error);
+    }
+   
+  }
     
   render() {
     const { materials, isLoading, error } = this.state;
@@ -57,8 +70,9 @@ const materials = await API.getMaterials();
             </p>
           )}
           <MaterialEditorForm onSubmit={this.addMaterial} />
-          {isLoading ? 'Loading materials' : <Materials items={materials}
-            onDelete={this.deleteMaterial}/>}
+          {isLoading ? 'Loading materials' : <MaterialList items={materials}
+            onDelete={this.deleteMaterial}
+            onUpdate={this.updateMaterial}/>}
          
         </div>
       );
