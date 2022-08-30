@@ -1,79 +1,46 @@
 import React, { Component } from 'react';
-import { MaterialEditorForm } from './MaterialEditorForm/MaterialEditorForm';
-import * as API from 'services/api';
-import {MaterialList} from './MaterialList/MaterialList'
+
 
 class App extends Component {
   state = {
-    materials: [],
-    isLoading: false,
-    error: false,
+    page: 1,
+    query: '',
+    items: [],
   };
 
-  async componentDidMount() {
-    try {
-      this.setState({ isLoading: true });
-const materials = await API.getMaterials();
-    this.setState({ materials, isLoading: false });
-    } catch (error) {
-      this.setState({ error: true, isLoading: false });
-      console.log(error);
-    }
-    
+  handleSubmit = e => {
+    e.preventDefault();
+    this.setState({
+      page: 1, 
+      query: e.target.elements.query.value,
+      items: [],
+    })
+    e.target.reset();
   };
 
-  addMaterial = async (values) => {
-    try {
-      const material = await API.addMaterial(values);
-      this.setState(state => ({
-        materials: [...state.materials, material],
-      }));
-    } catch (error) {
-      this.setState({ error: true, isLoading: false });
-      console.log(error);
-    }
-  };
-
-  deleteMaterial = async id => {
-    try {
-      await API.deleteMaterial(id);
-    this.setState(state => ({
-      materials: state.materials.filter(material => material.id !== id),
+  loadMore = () => {
+    this.setState(prevState => ({
+      page: prevState.page + 1,
     }));
-    } catch (error) {
-      this.setState({ error: true })
-      console.log(error);
-    }
-  };
-
-  updateMaterial = async fields => {
-    try {
- const updatedMaterial = await API.updateMaterial(fields);
-    this.setState(state => ({
-      materials: state.materials.map(material =>
-        material.id === fields.id ? updatedMaterial : material),
-    }));
-    } catch (error) {
-      this.setState({ error: true });
-      console.log(error);
-    }
-   
   }
+
+  componentDidUpdate(_, prevState) {
+
+    if (prevState !== this.state.page || prevState.query !== this.state.query) {
+      console.log("Fetch data");
+    }
+  };
+  
     
   render() {
-    const { materials, isLoading, error } = this.state;
       return (
         <div>
-          {error && (
-            <p>
-              Ooops, something went wrong :( Reload, please, site and try again :(
-            </p>
-          )}
-          <MaterialEditorForm onSubmit={this.addMaterial} />
-          {isLoading ? 'Loading materials' : <MaterialList items={materials}
-            onDelete={this.deleteMaterial}
-            onUpdate={this.updateMaterial}/>}
-         
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" name="query" />
+            <button type="submit">Search</button>
+          </form>
+          
+          <button onClick={this.loadMore}>Load more</button>
         </div>
       );
     }
