@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Counter.module.css';
 
 export default function Counter() {
@@ -8,11 +8,16 @@ export default function Counter() {
 
     const handleCounterAIncrement = () => {
         setCounterA(state => state + 1);
-    }
+    };
 
-      const handleCounterBIncrement = () => {
+    const handleCounterBIncrement = () => {
         setCounterB(state => state + 1);
-    }
+    };
+
+    useEffect(() => {
+        const totalClicks = counterA + counterB;
+        document.title = `All numbers of click ${totalClicks}`;
+    }, [counterA, counterB]);
 
     return (
         <>

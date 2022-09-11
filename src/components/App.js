@@ -1,7 +1,7 @@
 
-// import SignupForm from 'components/SignupForm/SignupForm';
+import SignupForm from 'components/SignupForm/SignupForm';
 // import ColorPicker from "./ColorPicker/ColorPicker";
-import Counter from './Counter/Counter';
+// import Counter from './Counter/Counter';
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -23,9 +23,9 @@ const containerStyles = {
 export default function App() {
     return (
         <div style={containerStyles}>
-        {/* <SignupForm /> */}
+        <SignupForm />
         {/* <ColorPicker options={colorPickerOptions}/> */}
-        <Counter />
+        {/* <Counter /> */}
         
         </div>
     );
