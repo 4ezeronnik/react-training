@@ -1,9 +1,9 @@
 
 // import SignupForm from 'components/SignupForm/SignupForm';
 // import ColorPicker from "./ColorPicker/ColorPicker";
-// import Counter from './Counter/Counter';
+import Counter from './Counter/Counter';
 // import Clock from './Clock/Clock';
-import UserMenu from "./UserMenu/UserMenu";
+// import UserMenu from "./UserMenu/UserMenu";
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -27,9 +27,9 @@ export default function App() {
         <div style={containerStyles}>
         {/* <SignupForm /> */}
         {/* <ColorPicker options={colorPickerOptions}/> */}
-        {/* <Counter /> */}
+        <Counter />
         {/* <Clock /> */}
-        <UserMenu />
+        {/* <UserMenu /> */}
         
         </div>
     );
