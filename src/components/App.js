@@ -4,7 +4,9 @@
 // import Counter from './Counter/Counter';
 // import Clock from './Clock/Clock';
 // import UserMenu from "./UserMenu/UserMenu";
-import Friends from "./Friends";
+// import Friends from "./Friends";
+// import NewsSearchForm from "./NewsSearchForm";
+import News from "./News";
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -31,7 +33,8 @@ export default function App() {
         {/* <Counter /> */}
         {/* <Clock /> */}
         {/* <UserMenu /> */}
-        <Friends />
+        {/* <Friends /> */}
+        <News />
         
         </div>
     );
