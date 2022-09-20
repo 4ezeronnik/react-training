@@ -21,9 +21,14 @@ export default function News() {
   const [articles, setArticles] = useState([]);
   const [query, setQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        fetchArticles({ searchQuery: query, currentPage }).then(responseArticles => setArticles(responseArticles));
+  useEffect(() => {
+    setIsLoading(true);
+    fetchArticles({ searchQuery: query, currentPage }).then(responseArticles => {
+      setArticles(prevArticles => [...prevArticles, ...responseArticles])
+    },
+    ).finally(setIsLoading(false));
     }, [currentPage, query]);
   
   const onChangeQuery = query => {
@@ -44,7 +49,20 @@ export default function News() {
       </a>
     </li>
   ))}
-</ul>
+        </ul>
+        
+         {isLoading && (
+  <p style={{ fontSize: 24, display: 'flex', alignItems: 'center' }}>
+    Загружаем...
+    <span
+      aria-label="Иконка"
+      role="img"
+      style={{ fontSize: 32, marginLeft: 10 }}
+    >
+      🧙‍♂️
+    </span>
+  </p>
+     )}
         </>
     )
 }
