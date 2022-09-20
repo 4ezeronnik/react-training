@@ -18,14 +18,24 @@ const fetchArticles = ({
 };
 
 export default function News() {
-    const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState([]);
+  const [query, setQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
-        fetchArticles({ searchQuery: 'css' }).then(responseArticles => setArticles(responseArticles));
-    }, []);
+        fetchArticles({ searchQuery: query, currentPage }).then(responseArticles => setArticles(responseArticles));
+    }, [currentPage, query]);
+  
+  const onChangeQuery = query => {
+    setQuery(query);
+    setCurrentPage(1);
+    setArticles([]);
+  };
+  
 
     return (
-        <>
+      <>
+        <NewsSearchForm onSubmit={onChangeQuery}/>
             <ul>
   {articles.map(({ title, url }) => (
     <li key={title}>
