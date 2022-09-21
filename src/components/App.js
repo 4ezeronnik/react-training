@@ -6,7 +6,8 @@
 // import UserMenu from "./UserMenu/UserMenu";
 // import Friends from "./Friends";
 // import NewsSearchForm from "./NewsSearchForm";
-import News from "./News";
+// import News from "./News";
+import UserMenu from "./UserMenu";
 
 // const colorPickerOptions = [
 //   { label: 'red', color: '#F44336' },
@@ -34,7 +35,8 @@ export default function App() {
         {/* <Clock /> */}
         {/* <UserMenu /> */}
         {/* <Friends /> */}
-        <News />
+        {/* <News /> */}
+        <UserMenu />
         
         </div>
     );
