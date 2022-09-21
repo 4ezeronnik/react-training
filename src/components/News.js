@@ -5,7 +5,7 @@ import axios from 'axios';
 axios.defaults.headers.common['Authorization'] =
   'Bearer 4330ebfabc654a6992c2aa792f3173a3';
 
-const fetchArticles = ({
+const APIfetchArticles = ({
   searchQuery = '',
   currentPage = 1,
   pageSize = 5,
@@ -22,13 +22,23 @@ export default function News() {
   const [query, setQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
 
   useEffect(() => {
-    setIsLoading(true);
-    fetchArticles({ searchQuery: query, currentPage }).then(responseArticles => {
-      setArticles(prevArticles => [...prevArticles, ...responseArticles])
-    },
-    ).finally(setIsLoading(false));
+    const fetchArticles = () => {
+      setIsLoading(true);
+    
+      APIfetchArticles({ searchQuery: query, currentPage })
+        .then(responseArticles => {
+          setArticles(prevArticles => [...prevArticles, ...responseArticles]);
+          setCurrentPage(prevCurrentPage => prevCurrentPage + 1);
+        })
+        .catch(error => setError(error.message))
+        .finally(setIsLoading(false));
+    };
+
+    fetchArticles();
     }, [currentPage, query]);
   
   const onChangeQuery = query => {
@@ -37,9 +47,13 @@ export default function News() {
     setArticles([]);
   };
   
+  const shouldRenderLoadMoreButton = articles.length > 0 && !isLoading;
 
     return (
       <>
+        
+        {error && <h1>Ой ошибка, всё пропало!!!</h1>}
+
         <NewsSearchForm onSubmit={onChangeQuery}/>
             <ul>
   {articles.map(({ title, url }) => (
@@ -50,6 +64,13 @@ export default function News() {
     </li>
   ))}
         </ul>
+
+   {shouldRenderLoadMoreButton && (
+  <button type="button" onClick={null}>
+    Загрузить ещё
+  </button>
+)}
+
         
          {isLoading && (
   <p style={{ fontSize: 24, display: 'flex', alignItems: 'center' }}>
