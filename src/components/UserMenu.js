@@ -13,19 +13,22 @@ const styles = {
 }
 
 export default function UserMenu() { 
-    const authContext = useContext(ctx);
-console.log('UserMenu');
-console.log(authContext);
+    const {user, logIn, logOut} = useContext(ctx);
+
+
 
     return (
         <div style={styles.container}>
-            <button type="button" onClick={() => console.log('Входим')}>
-                Войти
-            </button>
-            <p style={styles.tag}>Юзер</p>
-            <button type="button" onClick={() => console.log('Вьіходим')}>
+            
+            {user ? <>
+                <p style={styles.tag}>{user}</p>
+            <button type="button" onClick={logOut}>
                 Вьійти
                 </button>
+            </> :  <button type="button" onClick={logIn}>
+                Войти
+            </button> }
+           
         </div>
     )
 }
