@@ -1,43 +1,28 @@
+import { useState } from "react";
 
-// import SignupForm from 'components/SignupForm/SignupForm';
-// // import ColorPicker from "./ColorPicker/ColorPicker";
-// import Counter from './Counter/Counter';
-// import Clock from './Clock/Clock';
-// import UserMenu from "./UserMenu/UserMenu";
-// import Friends from "./Friends";
-// import NewsSearchForm from "./NewsSearchForm";
-// import News from "./News";
-import UserMenu from "./UserMenu";
-
-// const colorPickerOptions = [
-//   { label: 'red', color: '#F44336' },
-//   { label: 'green', color: '#4CAF50' },
-//   { label: 'blue', color: '#2196F3' },
-//   { label: 'grey', color: '#607D8B' },
-//   { label: 'pink', color: '#E91E63' },
-//   { label: 'indigo', color: '#3F51B5' },
-// ];
-
-const containerStyles = {
-  maxWidth: 1170,
-  marginLeft: 'auto',
-  marginRight: 'auto',
-  paddingLeft: 15,
-  paddingRight: 15,
-};
+const Modal = ({ url }) => {
+  return (
+    <div>
+      <p>MODAL</p>
+      <p>URL : {url}</p>
+    </div>
+  );
+}
 
 export default function App() {
+  const [images, setImages] = useState([
+    { preview: 'preview-1', large: 'large-1' },
+    { preview: 'preview-2', large: 'large-2' },
+    {preview: 'preview-3', large: 'large-3'},
+  ]);
     return (
-        <div style={containerStyles}>
-        {/* <SignupForm /> */}
-        {/* <ColorPicker options={colorPickerOptions}/> */}
-        {/* <Counter /> */}
-        {/* <Clock /> */}
-        {/* <UserMenu /> */}
-        {/* <Friends /> */}
-        {/* <News /> */}
-        <UserMenu />
-        
+      <div>
+        <div>
+          {images.map(image => (
+            <div key={image.large}>{image.large}</div>
+          ))}
         </div>
+        <Modal url="4" />
+       </div>
     );
 }
